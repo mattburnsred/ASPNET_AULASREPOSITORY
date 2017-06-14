@@ -1,0 +1,38 @@
+﻿@using Aula_13._06_MVC.Models;
+@model Categoria
+
+@{
+    ViewBag.Title = "Cadastrar Categoria";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.HiddenFor(m => m.Id)
+@using (Html.BeginForm())
+{
+    <div class="form">
+        <fieldset>
+            <legend>@ViewBag.Title</legend>
+            <div class="form-group">
+                <label for="Nome" class="col-lg-2 control-label">Nome:</label>
+                <div class="col-lg-10">
+                    @Html.TextBoxFor(m => m.Nome, new { @class="form-control", @maxlength="100" })
+                    @Html.ValidationMessageFor(m => m.Nome)
+                    <br/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="Descricao" class="col-lg-2 control-label">Descrição:</label>
+                <div class="col-lg-10">
+                    @Html.TextAreaFor(m => m.Descricao, new { @class = "form-control", @rows = "3", @maxlength="500" })
+                    <br />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-lg-10 col-lg-offset-2">
+                    <button type="reset" class="btn btn-default">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+}
