@@ -1,0 +1,38 @@
+﻿@model BibliotecaMVC.Models.Categoria
+
+@{
+    ViewBag.Title = "Cadastrar Categoria";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h2>@ViewBag.Title</h2>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.Label("Nome:")
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.Nome, new { @class = "form-control", @maxlength = "100" })
+                @Html.ValidationMessageFor(m => m.Nome, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.Label("Status:")
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.CheckBoxFor(m => m.Status)
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Salvar" class="btn btn-default" />
+                <a type="button" value="Voltar" class="btn btn-primary" href="~/Views/Categorias/Index.cshtml" />
+            </div>
+        </div>
+    </div>
+}
