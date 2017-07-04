@@ -14,7 +14,8 @@ namespace BibliotecaMVC.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            var categorias = _context.Categorias.ToList();
+            return View(categorias);
         }
 
         [HttpGet]
@@ -81,26 +82,33 @@ namespace BibliotecaMVC.Controllers
             }
         }
 
-        // GET: Categorias/Delete/5
-        public ActionResult Delete(int id)
+        [HttpGet]
+        public ActionResult Delete(int? Id)
         {
-            return View();
+            if (Id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Categoria categoria = _context.Categorias.Find(Id);
+            if (categoria == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(categoria);
         }
 
-        // POST: Categorias/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        [ActionName("Delete")]
+        public ActionResult DeleteConfirmed(int Id)
         {
-            try
-            {
-                // TODO: Add delete logic here
+            Categoria categoria = _context.Categorias.Find(Id);
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            _context.Categorias.Remove(categoria);
+            _context.SaveChanges();
+
+            return RedirectToAction("Index");
         }
     }
 }
