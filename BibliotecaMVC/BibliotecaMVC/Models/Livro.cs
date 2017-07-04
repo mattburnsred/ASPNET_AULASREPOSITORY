@@ -21,7 +21,7 @@ namespace BibliotecaMVC.Models
         public string Sinopse { get; set; }
 
         [Required(ErrorMessage = "O preenchimento do campo é obrigatório, favor verificar.")]
-        [StringLength(100, ErrorMessage = "Máximo de 100 caractéres, favor verificar."))]
+        [StringLength(100, ErrorMessage = "Máximo de 100 caractéres, favor verificar.")]
         public string Autor { get; set; }
 
         [Required]
