@@ -273,10 +273,14 @@
     <Content Include="Views\Categorias\Create.cshtml" />
     <Content Include="Views\Categorias\Edit.cshtml" />
     <Content Include="Views\Categorias\Delete.cshtml" />
+    <Content Include="Views\Livros\Index.cshtml" />
+    <Content Include="Views\Livros\Create.cshtml" />
+    <Content Include="Views\Livros\Edit.cshtml" />
+    <Content Include="Views\Livros\Delete.cshtml" />
+    <Content Include="Views\Livros\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Livros\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

@@ -1,7 +1,7 @@
-﻿@model IEnumerable<BibliotecaMVC.Models.Categoria>
+﻿@model IEnumerable<BibliotecaMVC.Models.Livro>
 
 @{
-    ViewBag.Title = "Categorias";
+    ViewBag.Title = "Livros";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -13,6 +13,12 @@
         {
             <table class="table">
                 <tr>
+                    <th>
+                        <label>Título</label>
+                    </th>
+                    <th>
+                        <label>Autor(a)</label>
+                    </th>
                     <th>
                         <label>Categoria</label>
                     </th>
@@ -30,10 +36,16 @@
                         <td>
                             <p>@item.Nome</p>
                         </td>
-                        @if (!item.Status)
+                        <td>
+                            <p>@item.Autor</p>
+                        </td>
+                        <td>
+                            <p>@item.Categorias</p>
+                        </td>
+                        @if (!item.Disponivel)
                         {
                             <td>
-                                <p>Inativo</p>
+                                <p>Disponível para empréstimo</p>
                             </td>
                             <td>
                                 @Html.ActionLink("Editar", "Edit", new { Id = item.Id }) |
@@ -43,10 +55,10 @@
                         else
                         {
                             <td>
-                                <p>Ativo</p>
+                                <p>Emprestado</p>
                             </td>
                             <td>
-                                @Html.ActionLink("Editar", "Edit", new { Id = item.Id })
+                                <p>-</p>
                             </td>
                         }
                     </tr>
@@ -55,6 +67,6 @@
         }
     </div>
     <div class="form-group">
-        <a type="button" class="btn btn-primary" style="width:100px" href="~/Categorias/Create"><label>Cadastrar</label></a>
+        <a type="button" class="btn btn-primary" style="width:100px" href="~/Livros/Create"><label>Cadastrar</label></a>
     </div>
 </div>
