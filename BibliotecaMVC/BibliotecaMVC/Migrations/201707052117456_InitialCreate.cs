@@ -18,6 +18,17 @@ namespace BibliotecaMVC.Migrations
                 .PrimaryKey(t => t.Id);
             
             CreateTable(
+                "dbo.Clientes",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Nome = c.String(nullable: false, maxLength: 100),
+                        Endereco = c.String(nullable: false, maxLength: 100),
+                        Status = c.Boolean(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
                 "dbo.Livroes",
                 c => new
                     {
@@ -123,6 +134,7 @@ namespace BibliotecaMVC.Migrations
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetRoles");
             DropTable("dbo.Livroes");
+            DropTable("dbo.Clientes");
             DropTable("dbo.Categorias");
         }
     }

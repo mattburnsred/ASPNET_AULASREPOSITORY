@@ -39,5 +39,7 @@ namespace BibliotecaMVC.Models
         public System.Data.Entity.DbSet<BibliotecaMVC.Models.Categoria> Categorias { get; set; }
 
         public System.Data.Entity.DbSet<BibliotecaMVC.Models.Livro> Livros { get; set; }
+
+        public System.Data.Entity.DbSet<BibliotecaMVC.Models.Cliente> Clientes { get; set; }
     }
 }
