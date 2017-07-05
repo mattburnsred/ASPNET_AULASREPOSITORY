@@ -15,8 +15,13 @@ namespace BibliotecaMVC.Controllers
 
         public ActionResult Index()
         {
-            var livros = _context.Livros.ToList();
-            return View(livros);
+            List<Livro> livros = _context.Livros.ToList();
+            if (livros.Count > 0)
+            {
+                return View(livros);
+            }
+
+            return View("Index");
         }
 
         [HttpGet]
@@ -134,32 +139,30 @@ namespace BibliotecaMVC.Controllers
             base.Dispose(disposing);
         }
 
-
-
-        // Exemplo Dropdownlists em sequencia
-
         //public JsonResult GetProdutosByCategoria(int idCategoria)
         //{
-        //    var produtos = db.Produtos.Where(p => p.CategoriaID == idCategoria).ToList();
+        //    var produtos = _context.Livros.Where(m => m.IdCategoria == idCategoria).ToList();
 
         //    return Json(produtos, JsonRequestBehavior.AllowGet);
         //}
 
         //public ActionResult ExibirPorCategoria()
         //{
-        //    ViewBag.CategoriaID = new SelectList(db.Categorias, "CategoriaID", "Nome");
-        //    ViewBag.ProdutoID = new SelectList(db.Produtos, "ProdutoID", "Nome");
+        //    ViewBag.IdCategoria = new SelectList(_context.Categorias, "Id", "Nome");
+        //    ViewBag.IdProduto = new SelectList(_context.Livros, "Id", "Nome");
+
         //    return View();
         //}
 
         //[HttpPost]
         //public ActionResult ExibirPorCategoria(FormCollection campos)
         //{
-        //    string categoriaID = campos["CategoriaID"];
-        //    string produtoID = campos["ProdutoID"];
+        //    string categoriaID = campos["IdCategoria"];
+        //    string produtoID = campos["IdProduto"];
 
-        //    ViewBag.CategoriaID = new SelectList(db.Categorias, "CategoriaID", "Nome");
-        //    ViewBag.ProdutoID = new SelectList(db.Produtos, "ProdutoID", "Nome");
+        //    ViewBag.CategoriaID = new SelectList(_context.Categorias, "CategoriaID", "Nome");
+        //    ViewBag.ProdutoID = new SelectList(_context.Livros, "ProdutoID", "Nome");
+
         //    return View();
         //}
     }

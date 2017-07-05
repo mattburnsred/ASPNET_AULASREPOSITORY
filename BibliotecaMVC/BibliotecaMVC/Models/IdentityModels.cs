@@ -30,6 +30,12 @@ namespace BibliotecaMVC.Models
             return new ApplicationDbContext();
         }
 
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            Database.SetInitializer<ApplicationDbContext>(null);
+            base.OnModelCreating(modelBuilder);
+        }
+
         public System.Data.Entity.DbSet<BibliotecaMVC.Models.Categoria> Categorias { get; set; }
 
         public System.Data.Entity.DbSet<BibliotecaMVC.Models.Livro> Livros { get; set; }

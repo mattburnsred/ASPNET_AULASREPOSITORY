@@ -14,8 +14,13 @@ namespace BibliotecaMVC.Controllers
 
         public ActionResult Index()
         {
-            var categorias = _context.Categorias.ToList();
-            return View(categorias);
+            List<Categoria> categorias = _context.Categorias.ToList();
+            if(categorias.Count > 0)
+            {
+                return View(categorias);
+            }
+
+            return View("Index");
         }
 
         [HttpGet]

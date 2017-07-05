@@ -34,9 +34,13 @@
                 </div>
             </div>
             <!-- Categoria -->
-
-
-
+            <div class="form-group">
+                <label for="Categoria" class="col-lg-2 control-label">Categoria:</label>
+                <div class="col-md-10">
+                    @Html.DropDownList("IdCategoria", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.IdCategoria, "", new { @class = "text-danger" })
+                </div>
+            </div>
             <!-- Sinópse -->
             <div class="form-group">
                 <label for="Sinopse" class="col-lg-2 control-label">Sinópse:</label>
