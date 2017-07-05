@@ -1,4 +1,5 @@
-﻿@model IEnumerable<BibliotecaMVC.Models.Livro>
+﻿@using BibliotecaMVC.Controllers;
+@model IEnumerable<BibliotecaMVC.Models.Livro>
 
 @{
     ViewBag.Title = "Livros";
@@ -39,10 +40,27 @@
                         <td>
                             <p>@item.Autor</p>
                         </td>
-                        <td>
-                            <p>@item.Categorias</p>
-                        </td>
+
+                        @if (item.IdCategoria != 0)
+                        {
+                            var _controller = new CategoriasController();
+                            var categoria = _controller.GetCategoriaByNome(item.IdCategoria);
+
+                            <td>
+                                <p>@categoria</p>
+                            </td>
+                        }
+
                         @if (!item.Disponivel)
+                        {
+                            <td>
+                                <p>Emprestado</p>
+                            </td>
+                            <td>
+                                @Html.ActionLink("Detalhes", "Details", new { Id = item.Id })
+                            </td>
+                        }
+                        else
                         {
                             <td>
                                 <p>Disponível para empréstimo</p>
@@ -51,15 +69,6 @@
                                 @Html.ActionLink("Editar", "Edit", new { Id = item.Id }) |
                                 @Html.ActionLink("Detalhes", "Details", new { Id = item.Id }) |
                                 @Html.ActionLink("Excluir", "Delete", new { Id = item.Id })
-                            </td>
-                        }
-                        else
-                        {
-                            <td>
-                                <p>Emprestado</p>
-                            </td>
-                            <td>
-                                <p>-</p>
                             </td>
                         }
                     </tr>

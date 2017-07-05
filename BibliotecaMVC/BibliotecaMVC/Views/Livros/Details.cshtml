@@ -1,4 +1,5 @@
-﻿@model BibliotecaMVC.Models.Livro
+﻿@using BibliotecaMVC.Controllers;
+@model BibliotecaMVC.Models.Livro
 
 @{
     ViewBag.Title = "Detalhes do Livro";
@@ -20,12 +21,19 @@
         <dd>
             @Html.DisplayFor(m => m.Autor)
         </dd>
-        <dt>
-            <label>Categoria:</label>
-        </dt>
-        <dd>
-            @Html.DisplayFor(m => m.Categorias.Nome)
-        </dd>
+
+        @if (Model.IdCategoria != 0)
+        {
+            var _controller = new CategoriasController();
+            var categoria = _controller.GetCategoriaByNome(Model.IdCategoria);
+
+            <dt>
+                <label>Categoria:</label>
+            </dt>
+            <dd>
+                <p>@categoria</p>
+            </dd>
+        }
 
         @if (!String.IsNullOrEmpty(Model.Sinopse))
         {
@@ -39,9 +47,19 @@
         <dt>
             <label>Status:</label>
         </dt>
-        <dd>
-            @Html.DisplayFor(m => m.Disponivel)
-        </dd>
+
+        @if (!Model.Disponivel)
+        {
+            <dd>
+                <p>Emprestado</p>
+            </dd>
+        }
+        else
+        {
+            <dd>
+                <p>Disponível para empréstimo</p>
+            </dd>
+        }
     </dl>
 </div>
 <p>

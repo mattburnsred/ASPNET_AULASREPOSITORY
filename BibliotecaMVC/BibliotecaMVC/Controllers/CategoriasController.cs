@@ -115,5 +115,13 @@ namespace BibliotecaMVC.Controllers
 
             return RedirectToAction("Index");
         }
+
+        public string GetCategoriaByNome(int IdCategoria)
+        {
+            var result = _context.Categorias.Find(IdCategoria);
+            var nome = result.Nome;
+
+            return nome;
+        }
     }
 }

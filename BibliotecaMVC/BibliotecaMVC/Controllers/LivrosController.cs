@@ -44,7 +44,19 @@ namespace BibliotecaMVC.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            ViewBag.Categorias = new SelectList(_context.Categorias, "IdCategoria", "Nome");
+            var content = from c in _context.Categorias
+                          where c.Status == true
+                          orderby c.Nome
+                          select new { c.Id, c.Nome };
+
+            var result = content.ToList().Select(m => new SelectListItem
+            {
+                Text = m.Nome,
+                Value = m.Id.ToString()
+            }).ToList();
+
+            ViewBag.Categorias = result;
+
             return View();
         }
 
@@ -59,8 +71,6 @@ namespace BibliotecaMVC.Controllers
 
                 return RedirectToAction("Index");
             }
-
-            ViewBag.Categorias = new SelectList(_context.Categorias, "IdCategoria", "Nome", model.IdCategoria);
 
             return View(model);
         }
@@ -79,7 +89,19 @@ namespace BibliotecaMVC.Controllers
                 return HttpNotFound();
             }
 
-            ViewBag.Categorias = new SelectList(_context.Categorias, "IdCategoria", "Nome", model.IdCategoria);
+            var content = from c in _context.Categorias
+                          where c.Status == true
+                          orderby c.Nome
+                          select new { c.Id, c.Nome };
+
+            var result = content.ToList().Select(m => new SelectListItem
+            {
+                Text = m.Nome,
+                Value = m.Id.ToString(),
+                Selected = (m.Id == model.IdCategoria)
+            }).ToList();
+
+            ViewBag.Categorias = result;
 
             return View(model);
         }
