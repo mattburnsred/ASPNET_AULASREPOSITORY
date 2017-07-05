@@ -45,6 +45,24 @@ namespace BibliotecaMVC.Migrations
                 .Index(t => t.Categorias_Id);
             
             CreateTable(
+                "dbo.Operacaos",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        DataEmprestimo = c.DateTime(nullable: false),
+                        DataDevolucao = c.DateTime(nullable: false),
+                        IdCliente = c.Int(nullable: false),
+                        IdLivro = c.Int(nullable: false),
+                        Clientes_Id = c.Int(),
+                        Livros_Id = c.Int(),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Clientes", t => t.Clientes_Id)
+                .ForeignKey("dbo.Livroes", t => t.Livros_Id)
+                .Index(t => t.Clientes_Id)
+                .Index(t => t.Livros_Id);
+            
+            CreateTable(
                 "dbo.AspNetRoles",
                 c => new
                     {
@@ -120,6 +138,8 @@ namespace BibliotecaMVC.Migrations
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
+            DropForeignKey("dbo.Operacaos", "Livros_Id", "dbo.Livroes");
+            DropForeignKey("dbo.Operacaos", "Clientes_Id", "dbo.Clientes");
             DropForeignKey("dbo.Livroes", "Categorias_Id", "dbo.Categorias");
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
@@ -127,12 +147,15 @@ namespace BibliotecaMVC.Migrations
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
+            DropIndex("dbo.Operacaos", new[] { "Livros_Id" });
+            DropIndex("dbo.Operacaos", new[] { "Clientes_Id" });
             DropIndex("dbo.Livroes", new[] { "Categorias_Id" });
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetRoles");
+            DropTable("dbo.Operacaos");
             DropTable("dbo.Livroes");
             DropTable("dbo.Clientes");
             DropTable("dbo.Categorias");

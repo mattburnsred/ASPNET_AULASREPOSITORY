@@ -12,106 +12,114 @@ namespace BibliotecaMVC.Controllers
 {
     public class ClientesController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private readonly ApplicationDbContext _context = new ApplicationDbContext();
 
-        // GET: Clientes
         public ActionResult Index()
         {
-            return View(db.Clientes.ToList());
+            List<Cliente> clientes = _context.Clientes.ToList();
+            if (clientes.Count > 0)
+            {
+                return View(clientes);
+            }
+
+            return View("Index");
         }
 
-        // GET: Clientes/Details/5
-        public ActionResult Details(int? id)
+        [HttpGet]
+        public ActionResult Details(int? Id)
         {
-            if (id == null)
+            if (Id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Cliente cliente = db.Clientes.Find(id);
+
+            Cliente cliente = _context.Clientes.Find(Id);
             if (cliente == null)
             {
                 return HttpNotFound();
             }
+
             return View(cliente);
         }
 
-        // GET: Clientes/Create
+        [HttpGet]
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Clientes/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Nome,Endereco,Status")] Cliente cliente)
+        public ActionResult Create(Cliente cliente)
         {
             if (ModelState.IsValid)
             {
-                db.Clientes.Add(cliente);
-                db.SaveChanges();
+                _context.Clientes.Add(cliente);
+                _context.SaveChanges();
+
                 return RedirectToAction("Index");
             }
 
             return View(cliente);
         }
 
-        // GET: Clientes/Edit/5
-        public ActionResult Edit(int? id)
+        [HttpGet]
+        public ActionResult Edit(int? Id)
         {
-            if (id == null)
+            if (Id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Cliente cliente = db.Clientes.Find(id);
+
+            Cliente cliente = _context.Clientes.Find(Id);
             if (cliente == null)
             {
                 return HttpNotFound();
             }
+
             return View(cliente);
         }
 
-        // POST: Clientes/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Nome,Endereco,Status")] Cliente cliente)
+        public ActionResult Edit(Cliente cliente)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(cliente).State = EntityState.Modified;
-                db.SaveChanges();
+                _context.Entry(cliente).State = EntityState.Modified;
+                _context.SaveChanges();
+
                 return RedirectToAction("Index");
             }
             return View(cliente);
         }
 
-        // GET: Clientes/Delete/5
-        public ActionResult Delete(int? id)
+        [HttpGet]
+        public ActionResult Delete(int? Id)
         {
-            if (id == null)
+            if (Id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Cliente cliente = db.Clientes.Find(id);
+
+            Cliente cliente = _context.Clientes.Find(Id);
             if (cliente == null)
             {
+
                 return HttpNotFound();
             }
+
             return View(cliente);
         }
 
-        // POST: Clientes/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Cliente cliente = db.Clientes.Find(id);
-            db.Clientes.Remove(cliente);
-            db.SaveChanges();
+            Cliente cliente = _context.Clientes.Find(id);
+            _context.Clientes.Remove(cliente);
+            _context.SaveChanges();
+
             return RedirectToAction("Index");
         }
 
@@ -119,7 +127,7 @@ namespace BibliotecaMVC.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                _context.Dispose();
             }
             base.Dispose(disposing);
         }

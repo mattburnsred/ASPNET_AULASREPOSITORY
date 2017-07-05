@@ -1,46 +1,62 @@
 ﻿@model IEnumerable<BibliotecaMVC.Models.Cliente>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Clientes";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<div class="form">
+    <h2>@ViewBag.Title</h2>
+    <br />
+    <div class="form-group">
+        @if (Model != null)
+        {
+            <table class="table">
+                <tr>
+                    <th>
+                        <label>Nome</label>
+                    </th>
+                    <th>
+                        <label>Status</label>
+                    </th>
+                    <th>
+                        <label>Ação</label>
+                    </th>
+                </tr>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Nome)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Endereco)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Status)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Endereco)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Status)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
-
-</table>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <p>@item.Nome</p>
+                        </td>
+                        @if (!item.Status)
+                        {
+                            <td>
+                                <p>Inativo</p>
+                            </td>
+                            <td>
+                                @Html.ActionLink("Editar", "Edit", new { Id = item.Id }) |
+                                @Html.ActionLink("Detalhes", "Details", new { Id = item.Id }) |
+                                @Html.ActionLink("Excluir", "Delete", new { Id = item.Id })
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                <p>Ativo</p>
+                            </td>
+                            <td>
+                                @Html.ActionLink("Editar", "Edit", new { Id = item.Id }) |
+                                @Html.ActionLink("Detalhes", "Details", new { Id = item.Id })
+                            </td>
+                        }
+                    </tr>
+                }
+            </table>
+        }
+    </div>
+    <div class="form-group">
+        <a type="button" class="btn btn-primary" style="width:100px" href="~/Clientes/Create"><label>Cadastrar</label></a>
+    </div>
+</div>
