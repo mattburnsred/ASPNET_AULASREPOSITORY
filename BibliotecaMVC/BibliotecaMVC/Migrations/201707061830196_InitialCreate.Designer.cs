@@ -13,7 +13,7 @@ namespace BibliotecaMVC.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201707052252207_InitialCreate"; }
+            get { return "201707061830196_InitialCreate"; }
         }
         
         string IMigrationMetadata.Source

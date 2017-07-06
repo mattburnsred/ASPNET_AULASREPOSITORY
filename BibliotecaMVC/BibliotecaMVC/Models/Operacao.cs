@@ -14,9 +14,11 @@ namespace BibliotecaMVC.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
+        [DataType(DataType.Date)]
         public DateTime DataEmprestimo { get; set; }
 
-        public DateTime DataDevolucao { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime? DataDevolucao { get; set; }
 
         #region [Relacionamentos]
 

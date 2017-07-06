@@ -1,6 +1,7 @@
 ﻿using BibliotecaMVC.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -45,9 +46,6 @@ namespace BibliotecaMVC.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            Operacao model = new Operacao();
-            model.DataEmprestimo = DateTime.Today;
-
             #region [Livros]
 
             var liv = from l in _context.Livros
@@ -72,7 +70,7 @@ namespace BibliotecaMVC.Controllers
                       orderby c.Nome
                       select new { c.Id, c.Nome };
 
-            var clientes = liv.ToList().Select(m => new SelectListItem
+            var clientes = cli.ToList().Select(m => new SelectListItem
             {
                 Text = m.Nome,
                 Value = m.Id.ToString()
@@ -82,22 +80,38 @@ namespace BibliotecaMVC.Controllers
 
             #endregion
 
-            return View(model);
+            return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(Operacao model)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add insert logic here
+                model.DataDevolucao = null;
+                _livroController.UpdateStatusEmprestimo(model.IdLivro);
+
+                _context.Operacoes.Add(model);
+                _context.SaveChanges();
 
                 return RedirectToAction("Index");
             }
-            catch
+
+            return View(model);
+        }
+
+        public void UpdateOperacoes(int? Id)
+        {
+            var model = _context.Operacoes.Find(Id);
+
+            if (model != null)
             {
-                return View();
+                model.DataDevolucao = DateTime.Today;
+
+                _livroController.UpdateStatusDevolucao(model.IdLivro);
+                _context.Entry(model).State = EntityState.Modified;
+                _context.SaveChanges();
             }
         }
     }

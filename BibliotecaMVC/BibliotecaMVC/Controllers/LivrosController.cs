@@ -159,6 +159,34 @@ namespace BibliotecaMVC.Controllers
             return titulo;
         }
 
+        public Livro UpdateStatusEmprestimo(int IdLivro)
+        {
+            var livro = _context.Livros.Find(IdLivro);
+
+            if (livro != null)
+            {
+                livro.Disponivel = false;
+                _context.Entry(livro).State = EntityState.Modified;
+                _context.SaveChanges();
+            }
+
+            return null;
+        }
+
+        public Livro UpdateStatusDevolucao(int IdLivro)
+        {
+            var livro = _context.Livros.Find(IdLivro);
+
+            if (livro != null)
+            {
+                livro.Disponivel = true;
+                _context.Entry(livro).State = EntityState.Modified;
+                _context.SaveChanges();
+            }
+
+            return null;
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
