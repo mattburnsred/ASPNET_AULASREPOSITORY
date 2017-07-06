@@ -50,7 +50,9 @@ namespace BibliotecaMVC.Migrations
                     {
                         Id = c.Int(nullable: false, identity: true),
                         DataEmprestimo = c.DateTime(nullable: false),
+                        DataPrevisao = c.DateTime(nullable: false),
                         DataDevolucao = c.DateTime(),
+                        Status = c.Boolean(nullable: false),
                         IdCliente = c.Int(nullable: false),
                         IdLivro = c.Int(nullable: false),
                         Clientes_Id = c.Int(),

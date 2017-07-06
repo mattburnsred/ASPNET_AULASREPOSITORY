@@ -89,9 +89,11 @@ namespace BibliotecaMVC.Controllers
         {
             if (ModelState.IsValid)
             {
+                model.Status = true;
                 model.DataDevolucao = null;
-                _livroController.UpdateStatusEmprestimo(model.IdLivro);
+                model.DataPrevisao = model.DataEmprestimo.AddDays(7);
 
+                _livroController.UpdateStatusEmprestimo(model.IdLivro);
                 _context.Operacoes.Add(model);
                 _context.SaveChanges();
 
@@ -107,6 +109,7 @@ namespace BibliotecaMVC.Controllers
 
             if (model != null)
             {
+                model.Status = false;
                 model.DataDevolucao = DateTime.Today;
 
                 _livroController.UpdateStatusDevolucao(model.IdLivro);
