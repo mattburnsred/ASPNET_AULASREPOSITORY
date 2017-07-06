@@ -16,7 +16,7 @@
             @Html.HiddenFor(m => m.Id)
             <br />
             <div class="form-group">
-                <label for="Nome" class="col-lg-2 control-label">Categoria:</label>
+                <label for="Nome" class="col-lg-2 control-label">Nome:</label>
                 <div class="col-lg-10">
                     @Html.TextBoxFor(m => m.Nome, new { @class = "form-control", @maxlenght = "100" })
                     @Html.ValidationMessageFor(m => m.Nome, "", new { @class = "text-danger" })
@@ -24,7 +24,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="Endereco" class="col-lg-2 control-label">Categoria:</label>
+                <label for="Endereco" class="col-lg-2 control-label">Endereço:</label>
                 <div class="col-lg-10">
                     @Html.TextBoxFor(m => m.Endereco, new { @class = "form-control", @maxlenght = "100" })
                     @Html.ValidationMessageFor(m => m.Endereco, "", new { @class = "text-danger" })
