@@ -33,20 +33,15 @@ namespace BibliotecaMVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Categoria model)
         {
-            try
+            if (ModelState.IsValid)
             {
-                if (ModelState.IsValid)
-                {
-                    _context.Categorias.Add(model);
-                    _context.SaveChanges();
-                }
+                _context.Categorias.Add(model);
+                _context.SaveChanges();
 
                 return RedirectToAction("Index");
             }
-            catch
-            {
-                throw;
-            }
+
+            return View(model);
         }
 
         [HttpGet]

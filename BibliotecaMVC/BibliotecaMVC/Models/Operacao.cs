@@ -18,6 +18,7 @@ namespace BibliotecaMVC.Models
         public DateTime DataEmprestimo { get; set; }
 
         [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime? DataDevolucao { get; set; }
 
         #region [Relacionamentos]

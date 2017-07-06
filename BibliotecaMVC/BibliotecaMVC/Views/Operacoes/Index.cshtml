@@ -61,7 +61,7 @@
                         @if (item.DataDevolucao != null)
                         {
                             <td>
-                                <p>@item.DataDevolucao</p>
+                                @Html.DisplayFor(m => item.DataDevolucao)
                             </td>
                             <td>
                                 @Html.ActionLink("Detalhes", "Details", new { Id = item.Id })
