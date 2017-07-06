@@ -1,52 +1,85 @@
-﻿@model IEnumerable<BibliotecaMVC.Models.Operacao>
+﻿@using BibliotecaMVC.Controllers;
+@model IEnumerable<BibliotecaMVC.Models.Operacao>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Empréstimos/Devoluções";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<div class="form">
+    <h2>@ViewBag.Title</h2>
+    <br />
+    <div class="form-group">
+        @if (Model != null)
+        {
+            <table class="table">
+                <tr>
+                    <th>
+                        <label>Livro</label>
+                    </th>
+                    <th>
+                        <label>Cliente</label>
+                    </th>
+                    <th>
+                        <label>Data do Empréstimo</label>
+                    </th>
+                    <th>
+                        <label>Data da Devolução</label>
+                    </th>
+                    <th>
+                        <label>Ação</label>
+                    </th>
+                </tr>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.DataEmprestimo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DataDevolucao)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IdCliente)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IdLivro)
-        </th>
-        <th></th>
-    </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        @if (item.IdLivro != 0)
+                        {
+                            var _livro = new LivrosController();
+                            var titulo = _livro.GetLivroByTitulo(item.IdLivro);
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.DataEmprestimo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DataDevolucao)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IdCliente)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IdLivro)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
+                            <td>
+                                <p>@titulo</p>
+                            </td>
+                        }
 
-</table>
+                        @if (item.IdCliente != 0)
+                        {
+                            var _cliente = new ClientesController();
+                            var nome = _cliente.GetClienteByNome(item.IdCliente);
+
+                            <td>
+                                <p>@nome</p>
+                            </td>
+                        }
+
+                        <td>
+                            <p>@item.DataEmprestimo.ToShortDateString()</p>
+                        </td>
+
+                        @if (item.DataDevolucao != null)
+                        {
+                            <td>
+                                <p>@item.DataDevolucao.ToShortDateString()</p>
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                <p>-</p>
+                            </td>
+                        }
+
+                        <td>
+                            @Html.ActionLink("Detalhes", "Details", new { Id = item.Id })
+                        </td>
+                    </tr>
+                }
+            </table>
+        }
+    </div>
+    <div class="form-group">
+        <a type="button" class="btn btn-primary" style="width:100px" href="~/Operacoes/Create"><label>Novo Empréstimo</label></a>
+    </div>
+</div>

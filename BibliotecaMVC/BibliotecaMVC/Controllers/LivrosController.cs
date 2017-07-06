@@ -151,6 +151,14 @@ namespace BibliotecaMVC.Controllers
             return RedirectToAction("Index");
         }
 
+        public string GetLivroByTitulo(int IdLivro)
+        {
+            var result = _context.Livros.Find(IdLivro);
+            var titulo = result.Nome;
+
+            return titulo;
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -160,32 +168,5 @@ namespace BibliotecaMVC.Controllers
 
             base.Dispose(disposing);
         }
-
-        //public JsonResult GetProdutosByCategoria(int idCategoria)
-        //{
-        //    var produtos = _context.Livros.Where(m => m.IdCategoria == idCategoria).ToList();
-
-        //    return Json(produtos, JsonRequestBehavior.AllowGet);
-        //}
-
-        //public ActionResult ExibirPorCategoria()
-        //{
-        //    ViewBag.IdCategoria = new SelectList(_context.Categorias, "Id", "Nome");
-        //    ViewBag.IdProduto = new SelectList(_context.Livros, "Id", "Nome");
-
-        //    return View();
-        //}
-
-        //[HttpPost]
-        //public ActionResult ExibirPorCategoria(FormCollection campos)
-        //{
-        //    string categoriaID = campos["IdCategoria"];
-        //    string produtoID = campos["IdProduto"];
-
-        //    ViewBag.CategoriaID = new SelectList(_context.Categorias, "CategoriaID", "Nome");
-        //    ViewBag.ProdutoID = new SelectList(_context.Livros, "ProdutoID", "Nome");
-
-        //    return View();
-        //}
     }
 }

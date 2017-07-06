@@ -123,6 +123,14 @@ namespace BibliotecaMVC.Controllers
             return RedirectToAction("Index");
         }
 
+        public string GetClienteByNome(int IdCliente)
+        {
+            var result = _context.Clientes.Find(IdCliente);
+            var nome = result.Nome;
+
+            return nome;
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

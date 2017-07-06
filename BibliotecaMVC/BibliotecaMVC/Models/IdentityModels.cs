@@ -42,6 +42,6 @@ namespace BibliotecaMVC.Models
 
         public System.Data.Entity.DbSet<BibliotecaMVC.Models.Cliente> Clientes { get; set; }
 
-        public System.Data.Entity.DbSet<BibliotecaMVC.Models.Operacao> Operacaos { get; set; }
+        public System.Data.Entity.DbSet<BibliotecaMVC.Models.Operacao> Operacoes { get; set; }
     }
 }
