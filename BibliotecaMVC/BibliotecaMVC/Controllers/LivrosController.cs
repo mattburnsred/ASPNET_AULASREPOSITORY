@@ -55,6 +55,11 @@ namespace BibliotecaMVC.Controllers
                 Value = m.Id.ToString()
             }).ToList();
 
+            if(result == null || result.Count == 0)
+            {
+                return View("Index");
+            }
+
             ViewBag.Categorias = result;
 
             return View();

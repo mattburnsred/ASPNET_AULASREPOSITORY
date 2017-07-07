@@ -80,6 +80,11 @@ namespace BibliotecaMVC.Controllers
 
             #endregion
 
+            if(clientes.Count == 0 && livros.Count == 0)
+            {
+                return View("Index");
+            }
+
             return View();
         }
 
